@@ -1,0 +1,105 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+</head>
+<body>
+<h3>TITLE:</h3>
+<p>
+    The application of openMP and CUDA in path-tracing
+</p>
+
+<h3>URL:</h3>
+<a href="https://github.com/ZiyiWang32/ParalleScotty3D/proposal.html">
+    https://github.com/ZiyiWang32/ParalleScotty3D/proposal.html</a>
+
+<h3>Summary:</h3>
+<p>
+    We are going to implement an optimized Scotty3D rendering program with OMP and CUDA with NVIDIA GPUs. 
+    Our plan is to start with a render function that uses static grid and thread pool with a sequential hit 
+    function where we simply traverse all primitive. We will use openMP with BVH tree to speed up the tracing function 
+    and use CUDA to accelerate the entire camera film rendering process. 
+</p>
+<h3>Background</h3>
+
+<h3>Challenge: </h3>
+<p>
+    1.Our first step is to use OMP to speed up the tracing function.
+     Like what we did in Assignment 3, we cannot simply throw everything to OMP. 
+     Instead, we need to implement the Bvh tree and then integrate it with the OMP task. 
+</p>
+<p>
+    2. Then we need to replace the static thread pool assignment with CUDA. 
+    The first challenge is that graphical data structures are complicated, 
+    and if we are dealing with complex scenes, it is hard to fit all graphical information into GPU memory. 
+    So we need to come up with an optimized way to load and utilize them without a lot of movement between RAM and GPU memory, 
+    which hurts the performance. 
+
+</p>
+<p>
+    3. Also, because of the characteristic of CUDA program, each cuda thread will execute all lines in the code space. 
+    In other words, if there are a lot of branching (if statement), all threads will execute the command even if they are 
+    not performing the computation. The base version of the starter code has a huge amount of branchings, 
+    which is a source for overheads.
+</p>
+<h3>RESOURCES:</h3>
+<p>
+    For machines, we will use the GHC machines containing NVIDIA GeForce RTX 2080 B GPU as resources to utilize GPUs. 
+    For starter code, we will use Scotty3D (<a href="https://github.com/CMU-Graphics/Scotty3D">https://github.com/CMU-Graphics/Scotty3D</a>), 
+    a 3D modeling, rendering, and animation package that students complete as part of 15-462/662 Computer Graphics. 
+    This code base uses conventional thread pool to render the scene and naive iteration to perform ray tracing. 
+</p>
+
+<h3>GOALS AND DELIVERABLES:</h3>
+<h4>Plan to achieve: </h4>
+<p>
+    Implement the BVH tree and the openMP version of trace function. 
+    We expect to get a 6x - 7.5x speed up over the sequential version with a 8-core machine. 
+    The ideal speed up would be 8x but we should take the tree-building process and other resource overheads into consideration.
+</p>
+<p>
+    Implement the CUDA version of path-tracer. We cannot predict a precise speed up because 
+    we cannot estimate the extent to which we could implement. However, our expectation is that this version should be 
+    faster than the openMP version. 
+</p>
+    
+<h4>
+    Hope to achieve:
+</h4>
+<p>
+    Come up ways to optimize the CUDA version by taking out branches in the code. 
+    his should further speed up the program.
+</p>
+
+<h4>
+    Result:
+</h4>
+<p>
+    A presentable demo of 3D graph to render during the poster session with speed up graphs 
+    comparing OpenMP and CUDA
+</p>
+<h3>PLATFORM CHOICE:</h3>
+<p>
+    For tools and framework, we use OpenMP and CUDA. OpenMP is good with its task management ability 
+    to deal with tree structure recursive like bvh tree. CUDA ,with its huge number of threads and warps resembling 
+    the characteristic of pixels, is designed to work with graphical problems in the first place.
+</p>
+
+<p>
+    For language, we choose C++ because it has existing libraries supporting the above parallel platforms.
+</p>
+    
+
+<h3>SCHEDULE:</h3>
+<ol>
+    <li>11.7–11.13: Implement the sequential version of path-trace function</li>
+    <li>11.14-11.20: Implement the bvh tree and OpenMP version. Start to think about how to implement in CUDA</li>
+    <li>11.21-11.27: Implement the CUDA version in a very basic way.</li>
+    <li>11.28-12.4: Optimize the CUDA version by integrating the BVH while not hurting the performance with recursion. 
+        If we have time, optimize the CUDA version with memories and branching code.</li>
+    <li>12.5-12.9: Finalize the program and report. Be prepared for the demo and presentation.</li>
+</ol>
+    
+</body>
+</html>

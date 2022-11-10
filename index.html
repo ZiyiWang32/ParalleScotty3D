@@ -21,6 +21,19 @@
     and use CUDA to accelerate the entire camera film rendering process. 
 </p>
 <h3>Background</h3>
+<p>
+    On a spectrum of rendering algorithms, rasterization is still the mainstream rendering strategy for computer graphics considering 
+    its computation cost and realistic visuals. Moreover, it has highly optimized graphics cards to support the specific rendering pipeline. 
+    However, rasterization is a highly-specialized solution for limited visual scenarios and doesn’t perform well in complex scenes involving a 
+    variety of optical effects. This is where ray tracing comes to play. Due to its natural logic that shooting the light rays around space, 
+    it has higher fidelity at the expense of a higher computation load. Even after Nvidia launched graphics cards with hardware ray tracing 
+    support in 2018, the performance penalty is still non-negligible for real-time rendering. Thus, to adopt this technique widely in modern 
+    rendering cases, developers have a long way to go and need to further optimize the performance based on current hardware, especially 
+    considering the growing scene complexity and more rigorous latency requirement from end-users. When more computation powers and specialized 
+    hardware become possible, a practical parallel acceleration implementation is imperative to scale the problem efficiently. 
+    Currently, lots of innovative research have been made in this area, and we may want to investigate some ideas to implement our version 
+    of parallel ray tracing. 
+</p>
 
 <h3>Challenge: </h3>
 <p>
